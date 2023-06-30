@@ -3,6 +3,7 @@ package edu.uady.escolar.service;
 import edu.uady.escolar.dto.KardexAlumno;
 import edu.uady.escolar.dto.MateriasKardex;
 import edu.uady.escolar.dto.client.LicenciaturaMateriaDTO;
+import edu.uady.escolar.entity.Alumno;
 import edu.uady.escolar.entity.Kardex;
 import edu.uady.escolar.entity.Kardex;
 import edu.uady.escolar.error.ControlEscolarException;
@@ -59,6 +60,33 @@ public class KardexService {
         List<MateriasKardex> materiasKardexes = new ArrayList<>();
         ResponseDto.getMaterias().stream().forEach(dto ->{
             MateriasKardex materiasKardex = new MateriasKardex();
+            materiasKardex.setMateria(dto.getMateria());
+            materiasKardex.setSemestre(dto.getSemestre());
+            materiasKardex.setClaveMateria(dto.getClaveMateria());
+            materiasKardexes.add(materiasKardex);
+        });
+        kardexAlumno.setMateriasKardex(materiasKardexes);
+        return kardexAlumno;
+    }
+    
+    public KardexAlumno findByKardexByNuevoAlumno(Alumno alumno, Long id) throws Exception{
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<LicenciaturaMateriaDTO> response = restTemplate.exchange("http://localhost:8090/coa-api/plan-estudios/"
+                        +id,
+                HttpMethod.GET, entity, LicenciaturaMateriaDTO.class);
+        LicenciaturaMateriaDTO ResponseDto = response.getBody();
+        log.info("Consumo endpompont desde Control Escolar");
+        log.info(ResponseDto);
+        KardexAlumno kardexAlumno = new KardexAlumno();
+        kardexAlumno.setNombreCompleto(alumno.getNombre()+" "+alumno.getApellidos());
+        //kardexAlumno.setFolio(kardex.get(0).getFolioKardex());
+        kardexAlumno.setLicenciatrua(ResponseDto.getLicenciatura());
+        List<MateriasKardex> materiasKardexes = new ArrayList<>();
+        ResponseDto.getMaterias().stream().forEach(dto ->{
+            MateriasKardex materiasKardex = new MateriasKardex();
+            materiasKardex.setIdMateria(dto.getIdMateria());
             materiasKardex.setMateria(dto.getMateria());
             materiasKardex.setSemestre(dto.getSemestre());
             materiasKardex.setClaveMateria(dto.getClaveMateria());
