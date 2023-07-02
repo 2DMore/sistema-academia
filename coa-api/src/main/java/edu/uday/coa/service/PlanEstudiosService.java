@@ -61,6 +61,7 @@ public class PlanEstudiosService {
         List<MateriaDTO> materiasDto = new ArrayList<>();
         planEstudios.stream().forEach(pe ->{
             MateriaDTO materia = new MateriaDTO();
+            materia.setIdMateria(pe.getMateria().getId());
             materia.setClaveMateria(pe.getMateria().getClaveMateria());
             materia.setMateria(pe.getMateria().getNombreMateria());
             materia.setSemestre(pe.getSemestre());
