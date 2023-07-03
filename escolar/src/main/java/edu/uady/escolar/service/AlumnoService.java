@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Log4j2
@@ -35,6 +36,8 @@ public class AlumnoService {
     
     
     public Alumno createAlumnoConKardex(Alumno alumno, Long licenciaturaId) throws Exception{
+    	Random random=new Random();
+    	int randomNum=0;
     	KardexAlumno kardexAlumno =kardexService.findByKardexByNuevoAlumno(alumno, licenciaturaId);
     	for(MateriasKardex materia:kardexAlumno.getMateriasKardex()) {
     		Kardex kardex=new Kardex();
@@ -42,6 +45,8 @@ public class AlumnoService {
     		kardex.setCalificacion(0.0);
     		kardex.setAlumno(alumno);
     		alumnoRepository.save(alumno);
+    		randomNum=random.nextInt(10000);
+    		kardex.setFolioKardex(String.valueOf(randomNum));
     		log.info(kardex.toString());
     		kardexService.createKardex(kardex);
     	}
