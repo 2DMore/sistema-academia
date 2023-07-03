@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Log4j2
@@ -85,7 +86,6 @@ public class KardexService {
         log.info(ResponseDto);
         KardexAlumno kardexAlumno = new KardexAlumno();
         kardexAlumno.setNombreCompleto(alumno.getNombre()+" "+alumno.getApellidos());
-        //kardexAlumno.setFolio(kardex.get(0).getFolioKardex());
         kardexAlumno.setLicenciatrua(ResponseDto.getLicenciatura());
         List<MateriasKardex> materiasKardexes = new ArrayList<>();
         ResponseDto.getMaterias().stream().forEach(dto ->{
