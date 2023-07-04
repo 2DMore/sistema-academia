@@ -1,4 +1,4 @@
-package edu.uady.configService;
+package edu.uady.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
 @EnableConfigServer
-public class ConfigServiceApplication {
+public class ConfigServerApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConfigServiceApplication.class, args);
+		SpringApplication.run(ConfigServerApiApplication.class, args);
 	}
 
 }

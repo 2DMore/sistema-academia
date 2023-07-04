@@ -1,8 +1,9 @@
 server:
-  port: 8070
+  port: 5051
+
 spring:
   application:
-    name: confi-service
+    name: server-config
 
   cloud:
     config:
@@ -10,4 +11,4 @@ spring:
         git:
           uri: https://github.com/2DMore/sistema-academia.git
           search-paths: config-data
-          default-label: master
+          default-label: development
