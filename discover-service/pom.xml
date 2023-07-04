@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.uady</groupId>
-	<artifactId>config-server-api</artifactId>
+	<artifactId>discover-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>config-server-api</name>
+	<name>discover-service</name>
 	<description>Trabajo</description>
 	<properties>
 		<java.version>17</java.version>
@@ -20,7 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 
 		<dependency>
@@ -28,11 +28,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-			<version>3.1.1</version>
+		<dependency> 
+			<groupId>org.glassfish.jaxb</groupId> 
+			<artifactId>jaxb-runtime</artifactId> 
 		</dependency>
+		
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
