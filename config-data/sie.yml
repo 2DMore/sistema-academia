@@ -1,0 +1,14 @@
+server:
+  port: ${random.int(7000,7100)}
+  servlet:
+    context-path: /sie-api
+spring:
+  datasource:
+      url: jdbc:mysql://localhost:3306/sie-bd
+      username: microjava
+      password: javajava
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
