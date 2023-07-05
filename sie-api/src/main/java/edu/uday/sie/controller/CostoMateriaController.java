@@ -36,9 +36,9 @@ public class CostoMateriaController {
         return costoMateriaService.createCostoMateria(costoMateria);
     }
     
-    @PostMapping("/{idMat}")
-    public CostoMateria createCostoMateriaId(@RequestBody CostoMateria costoMateria, @PathVariable(value="idMat") Long materiaId){
-    	return null; //costoMateriaService.createCostoMateriaId();
+    @PostMapping("/{clvMat}")
+    public CostoMateria createCostoMateriaNombre(@RequestBody CostoMateria costoMateria, @PathVariable(value="clvMat") String claveMat){
+    	return costoMateriaService.createCostoMateriaNombre(costoMateria, claveMat);
     }
 
     @PutMapping("/{id}")

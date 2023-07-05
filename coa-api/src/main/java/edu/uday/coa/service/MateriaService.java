@@ -1,5 +1,6 @@
 package edu.uday.coa.service;
 
+import edu.uday.coa.dto.MateriaDTO;
 import edu.uday.coa.entity.Materia;
 import edu.uday.coa.error.COAException;
 import edu.uday.coa.repository.MateriaRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -32,8 +34,19 @@ public class MateriaService {
         }
         return  materiaes;
     }
+    
+    public MateriaDTO getMateriaByClave(String claveMat) {
+		Materia materia=materiaRepository.findByClaveMateria(claveMat);
+		MateriaDTO dtoMat=new MateriaDTO();
+		dtoMat.setClaveMateria(materia.getClaveMateria());
+		dtoMat.setIdMateria(materia.getId());
+		dtoMat.setMateria(materia.getNombreMateria());
+		return dtoMat;
+	}
 
     public void deleteMateria(Long id){
         materiaRepository.deleteById(id);
     }
+
+	
 }
