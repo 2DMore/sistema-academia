@@ -44,7 +44,16 @@ public class KardexController {
             throw new RuntimeException(e);
         }
     }
-
+    /*
+    @GetMapping(value = "/{clvMateria}/{matricula}/")
+    public ResponseEntity<?> findByKardexByAlumnoYMateria(@PathVariable("matricula") String matricula,@PathVariable("clvMateria") String claveMat) {
+        try {
+            return ResponseEntity.ok().body(kardexService.findByKardexByAlumnoYMateria(matricula, claveMat));
+        }catch (Exception e) {
+            log.error(e);
+            throw new RuntimeException(e);
+        }
+    }*/
 
     @PostMapping
     public Kardex createKardex(@RequestBody Kardex kardex){

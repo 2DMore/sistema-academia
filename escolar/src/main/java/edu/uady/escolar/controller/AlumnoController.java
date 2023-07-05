@@ -22,6 +22,15 @@ public class AlumnoController {
     public List<Alumno> getAllAlumnos() {
         return alumnoService.getAllAlumnos();
     }
+    @GetMapping("/{matricula}")
+    public ResponseEntity<?> getAlumnoByMatricula(@PathVariable(value="matricula")String matricula) {
+    	try {
+            return ResponseEntity.ok().body(alumnoService.getAlumnoDTOByMatricula(matricula));
+        }catch (Exception e) {
+            log.error(e);
+            throw new RuntimeException(e);
+        }
+    }
 
     @PostMapping
     public Alumno createAlumno(@RequestBody Alumno alumno){

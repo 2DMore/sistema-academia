@@ -1,5 +1,6 @@
 package edu.uady.escolar.service;
 
+import edu.uady.escolar.dto.AlumnoDTO;
 import edu.uady.escolar.dto.KardexAlumno;
 import edu.uady.escolar.dto.MateriasKardex;
 import edu.uady.escolar.dto.client.LicenciaturaMateriaDTO;
@@ -61,6 +62,17 @@ public class AlumnoService {
 
     public List<Alumno> getAllAlumnos(){
         return alumnoRepository.findAll();
+    }
+    
+    public Alumno getAlumnoByMatricula(String matricula) {
+    	return alumnoRepository.findByMatricula(matricula);
+    }
+    
+    public AlumnoDTO getAlumnoDTOByMatricula(String matricula) {
+    	Alumno alumno=alumnoRepository.findByMatricula(matricula);
+    	AlumnoDTO dto=new AlumnoDTO();
+    	dto.setAlumnoId(alumno.getId());
+    	return dto;
     }
 
     public void deleteAlumno(Long id){
