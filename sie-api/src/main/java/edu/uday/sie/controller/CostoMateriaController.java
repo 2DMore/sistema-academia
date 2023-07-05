@@ -35,6 +35,11 @@ public class CostoMateriaController {
     public CostoMateria createCostoMateria(@RequestBody CostoMateria costoMateria) {
         return costoMateriaService.createCostoMateria(costoMateria);
     }
+    
+    @PostMapping("/{idMat}")
+    public CostoMateria createCostoMateriaId(@RequestBody CostoMateria costoMateria, @PathVariable(value="idMat") Long materiaId){
+    	return null; //costoMateriaService.createCostoMateriaId();
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCostoMateria(@RequestBody CostoMateria costoMateria) {

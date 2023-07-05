@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,8 +25,7 @@ public class Pago {
     private Long materiaId;
 
     @Column(name = "fecha_pago", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime fechaPago;
+    private LocalDate fechaPago;
 
     @Column(name = "importe_pago", nullable = false)
     private Double importePago;
