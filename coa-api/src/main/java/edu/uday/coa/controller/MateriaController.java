@@ -30,6 +30,16 @@ public class MateriaController {
             throw new RuntimeException(e);
         }
     }
+    
+    @GetMapping(value="/{clvMat}")
+    public ResponseEntity<?> getMateriaByClave(@PathVariable(value="clvMat")String claveMat) {
+    	try {
+            return ResponseEntity.ok().body(materiaService.getMateriaByClave(claveMat));
+        }catch (Exception e) {
+            log.error(e);
+            throw new RuntimeException(e);
+        }
+    }
 
     @PostMapping
     public Materia createMateria(@RequestBody Materia materia){

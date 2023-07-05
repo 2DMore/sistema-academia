@@ -3,6 +3,7 @@ package edu.uady.escolar.service;
 import edu.uady.escolar.dto.KardexAlumno;
 import edu.uady.escolar.dto.MateriasKardex;
 import edu.uady.escolar.dto.client.LicenciaturaMateriaDTO;
+import edu.uady.escolar.dto.client.MateriaDTO;
 import edu.uady.escolar.entity.Alumno;
 import edu.uady.escolar.entity.Kardex;
 import edu.uady.escolar.entity.Kardex;
@@ -103,4 +104,24 @@ public class KardexService {
     public void deleteKardex(Long id){
         kardexRepository.deleteById(id);
     }
+    /*
+	public KardexDTO findByKardexByAlumnoYMateria(String matricula, String claveMat) {
+		Alumno alumno=alumnoService.getAlumnoByMatricula(matricula);
+		Long idMat=findMateriaByClave(claveMat);
+		Kardex kardex=kardexRepository.findByAlumnoAndMateria(alumno,idMat );
+		KardexDTO dto=new KardexDTO();
+		dto.setAlumnoId(kardex.getAlumno().getId());
+		dto.setMateriaId(kardex.getMateria());
+		return dto;
+	}
+	public Long findMateriaByClave(String claveMat) {
+		RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<MateriaDTO> response = restTemplate.exchange(env.getProperty("URL_COA")+"/materia/"
+                        +claveMat,
+                HttpMethod.GET, entity, MateriaDTO.class);
+        MateriaDTO dtoMat=response.getBody();
+        return dtoMat.getIdMateria();
+	}*/
 }

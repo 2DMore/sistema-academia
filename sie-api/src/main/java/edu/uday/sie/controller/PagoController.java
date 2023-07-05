@@ -30,6 +30,11 @@ public class PagoController {
         }
     }
 
+    @PostMapping("/{clvMat}/{matricula}")
+    public Pago createPagoConClaveYMatricula(@RequestBody Pago pago,@PathVariable(value="clvMat") String claveMat,@PathVariable(value="matricula") String matricula) {
+        return pagoService.createPagoConClaveYMatricula(pago,claveMat,matricula);
+    }
+    
     @PostMapping
     public Pago createPago(@RequestBody Pago pago) {
         return pagoService.createPago(pago);
