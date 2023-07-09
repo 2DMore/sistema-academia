@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class GatewayApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
@@ -24,14 +23,6 @@ public class GatewayApplication {
 	@LoadBalanced
 	public RouteLocator router(RouteLocatorBuilder builder) {
 		return builder.routes()
-				/*.route(p -> p.path("/test1")
-						.filters(f->f.addRequestHeader("Hola", "UADY"))
-						.uri("https://uady.mx"))
-				.route(p->p.host("*.test2")
-						.filters(f->f.circuitBreaker(config->config.setName("test")
-								.setFallbackUri("forward:/test")))
-						.uri("http://localhost:80"))*/
 			.build();
 	}
-
 }

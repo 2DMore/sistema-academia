@@ -1,7 +1,7 @@
 server:
   port: ${random.int(6000,6100)}
   servlet:
-    context-path: /coa-api
+    context-path: /coa
 spring:
   datasource:
       url: jdbc:postgresql://localhost:5432/dbControlAcademico
