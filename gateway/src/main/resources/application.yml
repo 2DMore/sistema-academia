@@ -8,9 +8,9 @@ spring:
           enabled: true
       routes:
       - id: get-coa
-        uri: lb://coa
+        uri: lb://coa-api
         predicates:
-          - Path=/coa/**
+          - Path=/coa-api/**
         filters:
           - name: CircuitBreaker
             args:
