@@ -3,4 +3,4 @@ spring:
     config:
       uri: http://localhost:5051/
   application:
-    name: coa
+    name: coa-api

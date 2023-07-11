@@ -8,23 +8,23 @@ spring:
           enabled: true
       routes:
       - id: get-coa
-        uri: lb://coa-api
+        uri: lb://COA-API
         predicates:
-        - Path=/coa-api/**
+          - Path=/coa-api/**
         filters:
-        - name: CircuitBreaker
-          args:
-            name: CortoCircuito
-            fallbackUri: forward:/error
+          - name: CircuitBreaker
+            args:
+              name: CortoCircuito
+              fallbackUri: forward:/error
       - id: get-coe
-        uri: lb://coe
+        uri: lb://COE
         predicates:
-        - Path=/coe/**
+          - Path=/coe/**
         filters:
-        - name: CircuitBreaker
-          args:
-            name: CortoCicuito
-            fallbackUri: forward:/error
+          - name: CircuitBreaker
+            args:
+              name: CortoCicuito
+              fallbackUri: forward:/error
 server:
   port: 9070
 eureka:
