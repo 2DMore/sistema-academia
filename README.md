@@ -171,7 +171,7 @@ public class UadyProducerApplication implements CommandLineRunner{
 ```
 Se observa que esta clase está utilizando todos los métodos de la interfaz CommandLineRunner, por lo que está cumpliendo el Principio de Segregación de Interfaces.
 ## Dependency Inversion principle
-El último principio habla sobre  
+El último principio habla sobre cómo los módulos de alto nivel no deben depender de módulos de bajo nivel, ambos deben depender de la abstracción, y que las abstracciones no deben depender de los detalles, sino que los detalles dependen de la abstracción.  
 
 Ejemplo:
 ```java
