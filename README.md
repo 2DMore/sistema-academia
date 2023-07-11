@@ -61,11 +61,45 @@ public class AlumnoController {
 Esta clase tiene el propósito de llevar una acción relacionada a la entidad alumno dependiendo del tipo de solicitud que se realice. En otras palabras: Administrar peticiones relacionadas con la entidad "Alumno".  
 
 ## Open-Closed principle
-El segundo principio trata de  
+El segundo principio trata de que las entidades deben ser abiertas para extensión, pero cerradas para modificación.
 
 Ejemplo:
+```java
+package edu.uday.coa.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
+
+@Entity
+@Table(name = "materias")
+@Data
+@NoArgsConstructor
+public class Materia {
+    @Id
+    @Column(name ="id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "materia_seq")
+    @SequenceGenerator(name = "materia_seq", sequenceName = "materia_seq", initialValue = 1, allocationSize = 1)
+    private Long id;
+    @Column(name = "clave_materia")
+    private String claveMateria;
+    @Column(name ="nombre")
+    private String nombreMateria;
+    @JsonIgnore
+    @JsonProperty(value = "OtroNombreDelPlanDeEstudios")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
+    @ToString.Exclude
+    private List<PlanEstudio> planEstudios;
+}
+```
+Esta entidad está abierta a que se realicen nuevos tipos de materias con nuevas funcionalidades y atributos (por ejemplo: obligatorias y optativas) sin que sea necesario realizar modificaciones a esta entidad.  
 ## Liskov Substitution principle
-El tercer principio indica que  
+El tercer principio indica que las clases hijas deben tener el mismo comportamiento que las clases padres. 
 
 Ejemplo:  
 ```java
@@ -97,11 +131,15 @@ public class KardexService {
     }
 }
 ```
+La clase ControlEscolarException cumple con el Principio de Sustitución de Liskov al poder hacer las acciones que hace la clase a la cual está heredando sin operar de una forma diferente a Exception.
 
 ## Interface Segregation principle
-El cuarto principio da a notar  
+El cuarto principio da a notar que los clientes no deberían ser forzados a depender de métodos que no usan.
 
-Ejemplo:
+Ejemplo:  
+```java
+
+```
 ## Dependency Inversion principle
 El último principio habla sobre  
 
