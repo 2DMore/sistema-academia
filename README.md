@@ -174,3 +174,155 @@ Se observa que esta clase está utilizando todos los métodos de la interfaz Com
 El último principio habla sobre  
 
 Ejemplo:
+```java
+package edu.uady.escolar.service;
+
+import edu.uady.escolar.dto.AlumnoDTO;
+import edu.uady.escolar.dto.KardexAlumno;
+import edu.uady.escolar.dto.MateriasKardex;
+import edu.uady.escolar.entity.Alumno;
+import edu.uady.escolar.entity.Kardex;
+import edu.uady.escolar.repository.AlumnoRepository;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Random;
+
+@Service
+@Log4j2
+public class AlumnoService {
+    @Autowired
+    private AlumnoRepository alumnoRepository;
+    
+    @Autowired
+    private KardexService kardexService;
+    
+
+    public Alumno createAlumno(Alumno alumno){
+        log.info("crea alumno: "+alumno.toString());
+        return alumnoRepository.save(alumno);
+    }
+    
+    
+    public Alumno createAlumnoConKardex(Alumno alumno, Long licenciaturaId) throws Exception{
+    	Random random=new Random();
+    	int randomNum=0;
+    	KardexAlumno kardexAlumno =kardexService.findByKardexByNuevoAlumno(alumno, licenciaturaId);
+    	for(MateriasKardex materia:kardexAlumno.getMateriasKardex()) {
+    		Kardex kardex=new Kardex();
+    		kardex.setMateria(materia.getIdMateria());
+    		kardex.setCalificacion(0.0);
+    		kardex.setAlumno(alumno);
+    		alumnoRepository.save(alumno);
+    		randomNum=random.nextInt(10000);
+    		kardex.setFolioKardex(String.valueOf(randomNum));
+    		log.info(kardex.toString());
+    		kardexService.createKardex(kardex);
+    	}
+    	
+        return alumnoRepository.save(alumno);
+    }
+
+    public Alumno updateAlumno(Alumno alumno){
+        log.info("actualiza alumno: "+alumno.toString());
+        return alumnoRepository.save(alumno);
+    }
+
+    public List<Alumno> getAllAlumnos(){
+        return alumnoRepository.findAll();
+    }
+    
+    public Alumno getAlumnoByMatricula(String matricula) {
+    	return alumnoRepository.findByMatricula(matricula);
+    }
+    
+    public AlumnoDTO getAlumnoDTOByMatricula(String matricula) {
+    	Alumno alumno=alumnoRepository.findByMatricula(matricula);
+    	AlumnoDTO dto=new AlumnoDTO();
+    	dto.setAlumnoId(alumno.getId());
+    	return dto;
+    }
+
+    public void deleteAlumno(Long id){
+        alumnoRepository.deleteById(id);
+    }
+```
+Esta clase se encarga de conectarse a una base de datos (MySQL) y realizar acciónes de CRUD. Cabe recalcar que no se especifica a cual base de datos se está conectando, esta clase, al permitir que la implementación de la conexión y operación de la base de datos independientemente del tipo de base de datos que se quiera usar (por ejemplo: MySQL o PostgreSQL) se demuestra que se está cumpliendo el principio. Para demostrarlo, mostraremos la implementación de una clase que también se conecta a una base de datos, pero en PostgreSQL.
+```java
+package edu.uday.coa.service;
+
+import edu.uday.coa.dto.MateriaDTO;
+import edu.uday.coa.entity.Materia;
+import edu.uday.coa.error.COAException;
+import edu.uday.coa.repository.MateriaRepository;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@Log4j2
+public class MateriaService {
+    @Autowired
+    private MateriaRepository materiaRepository;
+
+    public Materia createMateria(Materia materia){
+        log.info("crea Materia: "+materia.toString());
+        return materiaRepository.save(materia);
+    }
+
+    public Materia updateMateria(Materia Materia){
+        log.info("actualiza Materia: "+Materia.toString());
+        return materiaRepository.save(Materia);
+    }
+
+    public List<Materia> getAllMaterias() throws Exception{
+        List<Materia> materiaes = materiaRepository.findAll();
+        if(materiaes.isEmpty()){
+            throw new COAException("no se encontraron datos");
+        }
+        return  materiaes;
+    }
+    
+    public MateriaDTO getMateriaByClave(String claveMat) {
+		Materia materia=materiaRepository.findByClaveMateria(claveMat);
+		MateriaDTO dtoMat=new MateriaDTO();
+		dtoMat.setClaveMateria(materia.getClaveMateria());
+		dtoMat.setIdMateria(materia.getId());
+		dtoMat.setMateria(materia.getNombreMateria());
+		return dtoMat;
+	}
+
+    public void deleteMateria(Long id){
+        materiaRepository.deleteById(id);
+    }
+
+	
+}
+```
+Para que esto sea posible se requiere que la interfaz del DAO extienda JpaRepository, el cual permite realizar las acciones CRUD.
+Ejemplo:
+```java
+package edu.uady.escolar.repository;
+
+import edu.uady.escolar.entity.Alumno;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AlumnoRepository extends JpaRepository<Alumno, Long> {
+	Alumno findByMatricula(String matricula);
+}
+
+```
+```java
+package edu.uday.coa.repository;
+
+import edu.uday.coa.entity.Materia;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MateriaRepository extends JpaRepository<Materia, Long> {
+	Materia findByClaveMateria(String claveMateria);
+}
+```
