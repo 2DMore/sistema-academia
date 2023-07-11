@@ -303,8 +303,10 @@ public class MateriaService {
 	
 }
 ```
-Para que esto sea posible se requiere que la interfaz del DAO extienda JpaRepository, el cual permite realizar las acciones CRUD.
-Ejemplo:
+Para que esto sea posible se requiere que la interfaz del DAO extienda JpaRepository, el cual permite realizar las acciones CRUD.  
+
+Ejemplo: 
+
 ```java
 package edu.uady.escolar.repository;
 
