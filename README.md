@@ -138,8 +138,38 @@ El cuarto principio da a notar que los clientes no deberían ser forzados a depe
 
 Ejemplo:  
 ```java
+package edu.uady.producer;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.core.KafkaTemplate;
+
+@SpringBootApplication
+public class UadyProducerApplication implements CommandLineRunner{
+	
+	@Autowired
+	KafkaTemplate kafkaTemplate;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(UadyProducerApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		while(true) {
+			kafkaTemplate.send("uady-topic", "Mensaje enviado: " + UUID.randomUUID());
+		}
+	}
+	
+	
+
+}
 ```
+Se observa que esta clase está utilizando todos los métodos de la interfaz CommandLineRunner, por lo que está cumpliendo el Principio de Segregación de Interfaces.
 ## Dependency Inversion principle
 El último principio habla sobre  
 
